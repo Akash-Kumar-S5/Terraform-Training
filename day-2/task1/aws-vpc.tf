@@ -20,26 +20,26 @@ resource "aws_internet_gateway" "igw" {
 
 # Create Public Subnets
 resource "aws_subnet" "public" {
-  count                   = length(var.public_subnets)
+  for_each                = { for idx, subnet in var.public_subnets : idx => subnet }
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnets[count.index].cidr
-  availability_zone       = var.public_subnets[count.index].az
+  cidr_block              = each.value.cidr
+  availability_zone       = each.value.az
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.vpc_name}-public-${count.index + 1}"
+    Name = "${var.vpc_name}-public-${each.key + 1}"
   }
 }
 
 # Create Private Subnets
 resource "aws_subnet" "private" {
-  count             = length(var.private_subnets)
-  vpc_id           = aws_vpc.main.id
-  cidr_block       = var.private_subnets[count.index].cidr
-  availability_zone = var.private_subnets[count.index].az
+  for_each          = { for idx, subnet in var.private_subnets : idx => subnet }
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
 
   tags = {
-    Name = "${var.vpc_name}-private-${count.index + 1}"
+    Name = "${var.vpc_name}-private-${each.key + 1}"
   }
 }
 
@@ -59,8 +59,8 @@ resource "aws_route_table" "public" {
 
 # Associate Public Subnets with Public Route Table
 resource "aws_route_table_association" "public" {
-  count          = length(var.public_subnets)
-  subnet_id      = aws_subnet.public[count.index].id
+  for_each      = aws_subnet.public
+  subnet_id     = each.value.id
   route_table_id = aws_route_table.public.id
 }
 
@@ -75,7 +75,7 @@ resource "aws_route_table" "private" {
 
 # Associate Private Subnets with Private Route Table
 resource "aws_route_table_association" "private" {
-  count          = length(var.private_subnets)
-  subnet_id      = aws_subnet.private[count.index].id
+  for_each      = aws_subnet.private
+  subnet_id     = each.value.id
   route_table_id = aws_route_table.private.id
 }

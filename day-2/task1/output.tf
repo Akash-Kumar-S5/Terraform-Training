@@ -5,12 +5,12 @@ output "vpc_id" {
 
 output "public_subnets" {
   description = "List of Public Subnets"
-  value       = aws_subnet.public[*].id
+  value       = [for subnet in aws_subnet.public : subnet.id]
 }
 
 output "private_subnets" {
   description = "List of Private Subnets"
-  value       = aws_subnet.private[*].id
+  value       = [for subnet in aws_subnet.private : subnet.id]
 }
 
 output "asg_name" {

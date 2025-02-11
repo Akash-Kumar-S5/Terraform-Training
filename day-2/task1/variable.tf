@@ -41,6 +41,12 @@ variable "ami_id" {
   default     = "ami-0005ee01bca55ab66"
 }
 
+variable "ssh_allowed_ip" {
+  description = "allowed ip value"
+  type = string
+  default = "14.194.142.66/32"
+}
+
 variable "key_name" {
   description = "EC2 Key Pair for SSH access"
   default     = "ak-pair" 
