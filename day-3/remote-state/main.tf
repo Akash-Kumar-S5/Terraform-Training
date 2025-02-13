@@ -1,27 +1,27 @@
 provider "aws" {
-  region = "us-west-2"
+  region = var.aws_region
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "ak-123-tfstate"
-     
+  bucket = var.s3_bucket_name
+
   lifecycle {
     prevent_destroy = true
   }
 }
 
 resource "aws_s3_bucket_versioning" "terraform_state" {
-    bucket = aws_s3_bucket.terraform_state.id
+  bucket = aws_s3_bucket.terraform_state.id
 
-    versioning_configuration {
-      status = "Enabled"
-    }
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "ak-tfapp-state"
-  read_capacity  = 1
-  write_capacity = 1
+  name           = var.dynamodb_table_name
+  read_capacity  = var.dynamodb_read_capacity
+  write_capacity = var.dynamodb_write_capacity
   hash_key       = "LockID"
 
   attribute {
