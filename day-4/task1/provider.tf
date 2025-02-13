@@ -13,8 +13,9 @@ provider "aws" {
   default_tags {
     tags = {
     CreatedBy = "akashkumars@presidio.com"
-    day = "3"
+    day = "4"
     task = "1"
+    environment = "training"
     }
   }
 }

@@ -39,10 +39,21 @@ resource "aws_vpc_security_group_egress_rule" "all_outbound" {
   cidr_ipv4   = "0.0.0.0/0"
 }
 
+# Get latest amz-linux ami
+data "aws_ami" "latest_amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*"]
+  }
+}
+
 # Create a Launch Template for EC2 instances
 resource "aws_launch_template" "asg_template" {
   name          = "${var.vpc_name}-launch-template"
-  image_id      = var.ami_id
+  image_id      = data.aws_ami.latest_amazon_linux.id
   key_name      = var.key_name
   instance_type = var.instance_type
 

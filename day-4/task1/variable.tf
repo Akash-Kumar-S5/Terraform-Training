@@ -52,6 +52,18 @@ variable "key_name" {
   default     = "ak-pair" 
 }
 
+variable "instance_name" {
+  description = "The name of the EC2 instance"
+  type        = string
+  default     = "ak-ec2-instance"
+}
+
+variable "instance_count" {
+  description = "Number of EC2 instances to create"
+  type        = number
+  default     = 1
+}
+
 # EC2 instance type
 variable "instance_type" {
   description = "Instance type for ASG"
