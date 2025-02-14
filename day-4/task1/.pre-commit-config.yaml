@@ -3,4 +3,5 @@ repos:
     rev: "v0.19.0"
     hooks:
       - id: terraform-docs-go
-        args: ["markdown", "table", "--output-file", "README.md", "."] 
+        args: ["markdown", "table", "--output-file", "README.md", "./day-4/task1"] 
+        files: \.tf$
