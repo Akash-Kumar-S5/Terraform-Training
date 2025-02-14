@@ -109,10 +109,3 @@ variable "db_password" {
   sensitive   = true
   default = "Password123"
 }
-
-variable "db_password_1" {
-  description = "Password for RDS (use secrets manager for production!)"
-  type        = string
-  sensitive   = true
-  default = "Password123"
-}
