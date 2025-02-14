@@ -31,6 +31,7 @@ No resources.
 | <a name="input_asg_min_size"></a> [asg\_min\_size](#input\_asg\_min\_size) | Minimum number of instances in ASG | `number` | `1` | no |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region to deploy resources | `string` | `"us-east-1"` | no |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Password for RDS (use secrets manager for production!) | `string` | `"Password123"` | no |
+| <a name="input_db_password_1"></a> [db\_password\_1](#input\_db\_password\_1) | Password for RDS (use secrets manager for production!) | `string` | `"Password123"` | no |
 | <a name="input_db_username"></a> [db\_username](#input\_db\_username) | Username for RDS | `string` | `"admin"` | no |
 | <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | Number of EC2 instances to create | `number` | `1` | no |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | The name of the EC2 instance | `string` | `"ak-ec2-instance"` | no |
