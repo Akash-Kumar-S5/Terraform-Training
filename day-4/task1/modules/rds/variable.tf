@@ -2,7 +2,7 @@
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "my-vpc"
+  default     = "ak-vpc"
 }
 
 # RDS Configuration
@@ -23,4 +23,25 @@ variable "db_password" {
   type        = string
   sensitive   = true
   default = "Password123"
+}
+
+variable "ec2_sg_id" {
+  
+}
+
+variable "vpc_id" {
+  description = "VPC ID of the existing VPC"
+  type        = string
+}
+
+variable "subnet_ids" {
+  description = "List of subnet IDs where the instance(s) will be launched"
+  type        = list(string)
+  default     = ["subnet-0123456789abcdef0", "subnet-0abcdef1234567890"]
+}
+
+variable "db_name" {
+  description = "The name of the initial database"
+  type        = string
+  default     = "akdatabase"
 }

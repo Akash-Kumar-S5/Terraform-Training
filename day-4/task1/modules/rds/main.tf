@@ -2,7 +2,7 @@
 resource "aws_security_group" "rds_sg" {
   name        = "${var.vpc_name}-rds-sg"
   description = "Security group for RDS MySQL instance"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
   tags = {
     Name = "${var.vpc_name}-rds-sg"
@@ -16,15 +16,13 @@ resource "aws_vpc_security_group_ingress_rule" "rds_mysql" {
   from_port          = 3306
   to_port            = 3306
   ip_protocol        = "tcp"
-  referenced_security_group_id = aws_security_group.asg_sg.id  # Only EC2 instances can access
+  referenced_security_group_id = var.ec2_sg_id
 }
 
 # Allow outbound traffic from RDS
 resource "aws_vpc_security_group_egress_rule" "rds_all_outbound" {
   security_group_id = aws_security_group.rds_sg.id
 
-  from_port   = 0
-  to_port     = 0
   ip_protocol = "-1"
   cidr_ipv4   = "0.0.0.0/0"
 }
@@ -32,7 +30,7 @@ resource "aws_vpc_security_group_egress_rule" "rds_all_outbound" {
 # Create RDS Subnet Group (uses private subnets)
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = "${var.vpc_name}-rds-subnet-group"
-  subnet_ids = [for subnet in aws_subnet.private : subnet.id]
+  subnet_ids =  var.subnet_ids 
 
   tags = {
     Name = "${var.vpc_name}-rds-subnet-group"
@@ -47,6 +45,7 @@ resource "aws_db_instance" "rds" {
   instance_class        = var.rds_instance_type
   allocated_storage     = 20
   storage_type          = "gp2"
+  db_name = var.db_name
   username             = var.db_username
   password             = var.db_password
   parameter_group_name  = "default.mysql8.0"

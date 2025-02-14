@@ -38,3 +38,26 @@ variable "vpc_id" {
   description = "VPC ID of the existing VPC"
   type        = string
 }
+
+variable "db_username" {
+  description = "Username for RDS"
+  type        = string
+  default     = "admin"
+}
+
+variable "db_password" {
+  description = "Password for RDS (use secrets manager for production!)"
+  type        = string
+  sensitive   = true
+  default = "Password123"
+}
+
+variable "db_name" {
+  description = "The name of the initial database"
+  type        = string
+  default     = "akdatabase"
+}
+
+variable "db_endpoint" {
+  
+}
