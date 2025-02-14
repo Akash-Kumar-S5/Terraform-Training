@@ -17,3 +17,8 @@ output "public_ips" {
   description = "Public IP addresses of the EC2 instances"
   value       = module.ec2.public_ips
 }
+
+output "public_ips_112" {
+  description = "Public IP addresses of the EC2 instances"
+  value       = module.ec2.public_ips
+}
