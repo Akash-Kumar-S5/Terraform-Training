@@ -12,6 +12,7 @@ pipeline {
             steps {
                 script {
                     echo "Current Branch Detected by Jenkins: ${env.BRANCH_NAME}"
+                    sh 'printenv'
                 }
             }
         }
