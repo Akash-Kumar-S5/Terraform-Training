@@ -8,6 +8,14 @@ pipeline {
             }
         }
 
+        stage('Debug Branch Name') {
+            steps {
+                script {
+                    echo "Current Branch Detected by Jenkins: ${env.BRANCH_NAME}"
+                }
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 dir('day-1/task1&2') { // Ensure correct Terraform directory
