@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "ak-terraform-bucket" 
+  bucket = "ak-cicd-bucket" 
 }
 
 output "bucket_name" {
