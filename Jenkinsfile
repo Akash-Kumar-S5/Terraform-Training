@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/akash-kumar-s0/terraform-training.git'
+                git branch: env.GIT_BRANCH, url: 'https://github.com/akash-kumar-s0/terraform-training.git'
             }
         }
 
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Terraform Apply') {
             when {
-                expression { env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main' }
+                branch 'origin/main'
             }
             steps {
                 dir('day-1/task1&2') {
