@@ -8,15 +8,6 @@ pipeline {
             }
         }
 
-        stage('Debug Branch Name') {
-            steps {
-                script {
-                    echo "Current Branch Detected by Jenkins: ${env.BRANCH_NAME}"
-                    sh 'printenv'
-                }
-            }
-        }
-
         stage('Terraform Init') {
             steps {
                 dir('day-1/task1&2') { // Ensure correct Terraform directory
@@ -35,7 +26,7 @@ pipeline {
 
         stage('Approval Check') {
             when {
-                branch 'main'
+                expression { env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main' }
             }
             steps {
                 script {
@@ -52,7 +43,7 @@ pipeline {
 
         stage('Terraform Apply') {
             when {
-                branch 'main'
+                expression { env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main' }
             }
             steps {
                 dir('day-1/task1&2') {
