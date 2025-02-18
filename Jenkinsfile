@@ -12,6 +12,7 @@ pipeline {
             steps {
                 dir('day-1/task1&2') { // Ensure correct Terraform directory
                     sh 'terraform init'
+                    sh 'echo ${env.GIT_BRANCH}'
                 }
             }
         }
