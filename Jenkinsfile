@@ -44,7 +44,7 @@ pipeline {
                         parameters: [booleanParam(defaultValue: false, description: 'Approve apply?', name: 'Proceed')]
                     )
                     if (!userInput) {
-                        error("Terraform Apply Canceled")
+                        error("Terraform Apply Canceled ")
                     }
                 }
             }
