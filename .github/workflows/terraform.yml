@@ -11,7 +11,7 @@ on:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest  # Change to self-hosted if running on EC2 (see note below)
+    runs-on: self-hosted  # Change to self-hosted if running on EC2 (see note below)
     
     env:
       GIT_BRANCH: ${{ github.ref_name }}  # Detects the branch name dynamically
